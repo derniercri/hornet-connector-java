@@ -22,7 +22,7 @@ Add the following dependency in your pom.xml file:
 
 	<dependency>
 		<groupId>com.nectify</groupId>
-		<artifactId>hornet-client-java</artifactId>
+		<artifactId>hornet-connector-java</artifactId>
 		<version>X.Y.Z</version>
 	</dependency>
 
