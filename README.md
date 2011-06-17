@@ -2,11 +2,11 @@
 
 ## Description
 
-Hornet is a realtime engine that let you enhance your web application by connecting users together. Hornet is a publish/suscribe extremely easy to use, secure and scalable. Well, Hornet will also integrates very well your own existing application, no matter what language or framework you're using.
+[Hornet](https://github.com/nectify/hornet) is a realtime engine that let you enhance your web application by connecting users together. [Hornet](https://github.com/nectify/hornet) is a publish/suscribe extremely easy to use, secure and scalable. Well, [Hornet](https://github.com/nectify/hornet) will also integrates very well your own existing application, no matter what language or framework you're using.
 
-Hornet is powered by NodeJs, Socket.io and backed by Redis.
+[Hornet](https://github.com/nectify/hornet) is powered by NodeJs, Socket.io and backed by Redis.
 
-The current library is a connector, a piece of software that will make your application able to talk with Hornet. 
+The current library is a connector, a piece of software that will make your application able to talk with [Hornet](https://github.com/nectify/hornet). 
 
 ### Hornet Philosophy, core engine and connectors
 
