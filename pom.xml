@@ -3,7 +3,7 @@
 
 	<groupId>com.nectify</groupId>
 	<artifactId>hornet-connector-java</artifactId>
-	<version>0.1.0</version>
+	<version>0.1.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<name>Hornet Java Connector</name>
 	<description>Hornet is a pub/sub engine based on socket.io to provide easy realtime behaviors for your webapp</description>
