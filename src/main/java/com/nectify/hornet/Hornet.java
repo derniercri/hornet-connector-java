@@ -29,6 +29,8 @@ public interface Hornet
     public String createAccessToken(String channel);
 
     public void disconnectTokens(String... tokens);
+    
+    public void publish(String[] channels, String type, JSONObject message, Object... options);
 
     public Long publish(String channel, String type, JSONObject message, Object... options);
 

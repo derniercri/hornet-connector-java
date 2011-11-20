@@ -51,6 +51,9 @@ public class HornetImpl implements Hornet
     }
 
     /**
+     * Create a token in order to provide access for an user to a list of channels.
+     * -
+     * -
      * tokens are the base62 version of the concatenation (string) of :
      * - unique id on any number of
      * digits
@@ -62,7 +65,7 @@ public class HornetImpl implements Hornet
      * 
      * @return
      */
-    public String createAccessToken(String channel)
+    public String createAccessToken(String... channels)
     {
         long timestamp = Math.round(System.currentTimeMillis() / 1000);
 
@@ -78,10 +81,17 @@ public class HornetImpl implements Hornet
 
             Long tokenBase10 = new Long(nextTokenId + suffix);
             token = HornetUtils.converter(62, tokenBase10);
-            
+
             String key = "hornet:token:" + token;
-            jedis.set(key, channel);
-            jedis.expire(key, tokenTTL);
+
+            for (int i = 0; i < channels.length; i++)
+            {
+                String channel = channels[i];
+
+                jedis.sadd(key, channel);
+                jedis.expire(key, tokenTTL);
+
+            }
         }
         finally
         {
@@ -115,6 +125,15 @@ public class HornetImpl implements Hornet
             pool.returnResource(jedis);
         }
 
+    }
+
+    public void publish(String[] channels, String type, JSONObject message, Object... options)
+    {
+        for (int i = 0; i < channels.length; i++)
+        {
+            String channel = channels[i];
+            publish(channel, type, message, options);
+        }
     }
 
     public Long publish(String channel, String type, JSONObject message, Object... options)
