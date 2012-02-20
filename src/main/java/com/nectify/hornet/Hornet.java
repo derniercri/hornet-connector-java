@@ -26,10 +26,24 @@ public interface Hornet
 
     public final static String EVENT_DISCONNECT = "hornet:events:disconnect";
 
-    public String createAccessToken(String channel);
+    /**
+     * Create a token in order to provide access for an user to a list of channels.
+     * -
+     * -
+     * tokens are the base62 version of the concatenation (string) of :
+     * - unique id on any number of digits
+     * - current timestamp (in seconds) left padded to be on 10 digits. i.e. it means any
+     * timestamp will look like : 0001234953. 10 digits are enough to go to Sat Nov 20 18:46:39
+     * +0100 2286 (9999999999)
+     * - a random number on 5 digits, again, left padded with 0. This last
+     * part is just to increase the complexity of the token.
+     * 
+     * @return
+     */
+    public String createAccessToken(String... channels);
 
     public void disconnectTokens(String... tokens);
-    
+
     public void publish(String[] channels, String type, JSONObject message, Object... options);
 
     public Long publish(String channel, String type, JSONObject message, Object... options);

@@ -50,21 +50,7 @@ public class HornetImpl implements Hornet
         tokenTTL = 120;
     }
 
-    /**
-     * Create a token in order to provide access for an user to a list of channels.
-     * -
-     * -
-     * tokens are the base62 version of the concatenation (string) of :
-     * - unique id on any number of
-     * digits
-     * - current timestamp (in seconds) left padded to be on 10 digits. i.e. it means any
-     * timestamp will look like : 0001234953. 10 digits are enough to go to Sat Nov 20 18:46:39
-     * +0100 2286 (9999999999)
-     * - a random number on 5 digits, again, left padded with 0. This last
-     * part is just to increase the complexity of the token.
-     * 
-     * @return
-     */
+
     public String createAccessToken(String... channels)
     {
         long timestamp = Math.round(System.currentTimeMillis() / 1000);
@@ -75,6 +61,7 @@ public class HornetImpl implements Hornet
         Jedis jedis = pool.getResource();
 
         String token = null;
+        
         try
         {
             long nextTokenId = jedis.incr("hornet:tokens_id");
@@ -89,9 +76,9 @@ public class HornetImpl implements Hornet
                 String channel = channels[i];
 
                 jedis.sadd(key, channel);
-                jedis.expire(key, tokenTTL);
-
             }
+            
+            jedis.expire(key, tokenTTL);
         }
         finally
         {
@@ -170,6 +157,7 @@ public class HornetImpl implements Hornet
         {
             pool.returnResource(jedis);
         }
+        
         return result;
     }
 
@@ -187,5 +175,4 @@ public class HornetImpl implements Hornet
     {
         tokenTTL = seconds;
     }
-
 }
