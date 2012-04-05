@@ -19,12 +19,12 @@ package com.nectify.hornet;
 import java.util.Random;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.pool.impl.GenericObjectPool.Config;
 import org.apache.tapestry5.json.JSONArray;
 import org.apache.tapestry5.json.JSONObject;
 
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
+import redis.clients.jedis.JedisPoolConfig;
 
 public class HornetImpl implements Hornet
 {
@@ -34,12 +34,15 @@ public class HornetImpl implements Hornet
 
     public HornetImpl(String host, Integer port, Integer timeout)
     {
-        Config poolConfig = new Config();
-
+    	JedisPoolConfig poolConfig = new JedisPoolConfig();
+    	//test if the connection is still open
+    	//otherwise reopen it!
+        poolConfig.setTestOnBorrow(true);
+        
         if (host == null) host = "localhost";
 
         if (port == null)
-            pool = new JedisPool(new Config(), host);
+            pool = new JedisPool(poolConfig, host);
 
         else if (timeout == null)
             pool = new JedisPool(poolConfig, host, port);
